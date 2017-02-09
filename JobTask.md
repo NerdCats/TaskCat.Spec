@@ -29,8 +29,8 @@ A job task under TaskCat is a sub-unit of a single job. A JobTask denotes a stag
         },
         "JobTaskState": {
             "description": "Current state of a jobtask",
-            "$ref": "http://nerdcats.com/taskcat/jobtask/state"
-            // TODO: Not defined yet, supposed to be any sub-type of this so we can have different job tasks for different job types
+            "$ref": "http://nerdcats.com/taskcat/jobtask/state",
+            "TODO": "Not defined yet, supposed to be any sub-type of this so we can have different job tasks for different job types"
         },
         "AssetRef": {
             "type": "string"
@@ -63,8 +63,8 @@ A job task under TaskCat is a sub-unit of a single job. A JobTask denotes a stag
         "Duration" : {
             "format": "duration",
             "type": "string",
-            "description": "JobTask duration"
-            // TODO: This is another place we can use some smartness, may be some property expressions
+            "description": "JobTask duration",
+            "TODO": "This is another place we can use some smartness, may be some property expressions"
         },
         "Description": {
             "description": "Description of the jobtask",
