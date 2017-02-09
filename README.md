@@ -55,7 +55,7 @@ The definition keyword defines the inline schema definition the schema exposes. 
     },
     "definitions" :[
         {
-            "namespace": "#titleString"
+            "namespace": "#titleString",
             "type": "string"
         }
     ]
@@ -68,7 +68,7 @@ Here the property `title` gets its schema through `$ref` keyword. The parser sho
 {
     "namespace" : "example.com/schema",
     "title": {
-        "namespace": "#titleString"
+        "namespace": "#titleString",
         "type" : "string" 
     }
 }
@@ -96,7 +96,7 @@ For example a sample schema built on the previous one we saw would be:
     },
     "definitions" :[
         {
-            "namespace": "#titleString"
+            "namespace": "#titleString",
             "type": "string"
         },
         {
@@ -106,7 +106,7 @@ For example a sample schema built on the previous one we saw would be:
             },
             "definitions": [
                 {
-                    "namespace": "#description"
+                    "namespace": "#description",
                     "type" : "string"
                 }
             ]
