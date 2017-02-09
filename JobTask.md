@@ -67,7 +67,3 @@ A job task under TaskCat is a sub-unit of a single job. A JobTask denotes a stag
     }
 }
 ```
-
-## TODO:
-* Compilable event definitions
-* Execution time properties
