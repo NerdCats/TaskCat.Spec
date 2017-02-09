@@ -45,19 +45,36 @@ Implied in this definition is that arrays must be the same length, objects must 
 Since JSON denotes any number as simply `number`, it would be worth mentioning that the representation for floating point numbers should be different than integers. In no circumstance an integer should ever be represented in a floating manner.
 
 ## The `defintion` keyword:
-The definition keyword defines the properties current schema exposes. A basic schema with a single string property definition would look like:
+The definition keyword defines the inline schema definition the schema exposes. This should contain all user defined schemas for the root schema that can be referenced using `$ref` pointer. We can also define a schema inline there if we know that that schema wont be reused. 
 
 ```JSON
 {
-    "definitions" :{
-        "title" : {
-            "type" : "string"
+    "namespace" : "example.com/schema",
+    "title": {
+        "$ref" : "#titleString" 
+    },
+    "definitions" :[
+        {
+            "namespace": "#titleString"
+            "type": "string"
         }
+    ]
+}
+```
+
+Here the property `title` gets its schema through `$ref` keyword. The parser should read the definitions first and then compile the schema as follows:
+
+```JSON
+{
+    "namespace" : "example.com/schema",
+    "title": {
+        "namespace": "#titleString"
+        "type" : "string" 
     }
 }
 ```
 
-Here the property `title` gets its type definition through `type` keyword which would essentially point to a basic data type we discussed about. User defined types would be defined through `namespace` keyword with inline/external definitions.
+This also dictates how we would've written if we would've written it inline. This can work but the sub-schema definition would only be active when the parser has encountered `title`.
 
 ## The `namespace` keyword
 The namespace keyword is used to define a URI for a specific schema. It would serve as the base uri for the schema and it is resolved to populate a full schema it points to if it is encountered declared under another schema. 
@@ -66,29 +83,47 @@ If present, the value for this keyword MUST be a string, and MUST represent a va
 
 To name subschema in a schema document subschemas are supposed to use a `namespace` property/instance to give them an identifier. 
 
-For example a sample schema would be:
+For example a sample schema built on the previous one we saw would be:
 
 ```JSON
 {
     "namespace": "example.com/schema",
-    "definitions": {
-        "PropertyA": {
-            "namespace": "#propASchema"
+    "title": {
+        "$ref" : "#titleString" 
+    },
+    "description": {
+        "type" : "string"
+    },
+    "definitions" :[
+        {
+            "namespace": "#titleString"
+            "type": "string"
         },
-        "PropertyB": {
-            "namespace": "#propBSchema",
-            "definitions" : {
-                "propX": {
-                    "namespace" : "#bar",
-                },
-                "propY" : {
-                    "namespace" : "subschema/subsubschema"
+        {
+            "namespace": "descriptionObject",
+            "description": {
+                "$ref": "#description"
+            },
+            "definitions": [
+                {
+                    "namespace": "#description"
+                    "type" : "string"
                 }
-            }
+            ]
         }
-    }
+    ]
 }
 ```
+
+This follows URI-encoded JSON Pointers [RFC6901] (relative to the root schema) to point specific JSON references internally or externally. Like in this case:
+ 
+ \# (document root) - `example.com/schema#` \
+ \#/definitions/0 - `example.com/schema#titleString` \
+ \#/defintions/PropertyB - `example.com/propBSchema` which comes with an inline definition here. \
+ \#/defintions/PropertyB/defintions/propX - `example.com/schema#bar` \
+ \#/defintions/PropertyB/defintions/propX - `example.com/schema/subschema/subsubschema` which has to be resolved to get the definitions set 
+
+
 
 ## Schema inheritance and overloading
 
