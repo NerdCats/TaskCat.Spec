@@ -1,53 +1,81 @@
 ## JobTask
-A job task under TaskCat is a sub-unit of a single job. A JobTask denotes a stage of work in a job. A job is supposed to have tasks for any stage in a work process. JobTasks true purpose is to preserve history in the process of a Job. JobTask is volatile in nature and is susceptible to changes from users. This changes are eventful and Jobs are essentially susceptible to those. 
+A job task under TaskCat is a sub-unit of a single job. A JobTask denotes a stage of work in a job. A job is supposed to have tasks for any stage in a work process. JobTasks true purpose is to preserve history in the process of a Job. JobTask is volatile in nature and is susceptible to changes from users. This changes are eventful and Jobs are essentially susceptible to those.
 
 ## Abstract JobTask Schema
 ```JSON
 {
-    "namespace": "nerdcats.co/taskcat/jobtask",
-    "definitions" : {
-        "Name" : {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://nerdcats.com/taskcat/jobtask",
+    "title": "JobTask",
+    "description": "Generic JobTask Schema",
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "Unique 24 character GUID",
             "type": "string"
         },
-        "Variant" : {
-            "type": "string" // TODO: Should come from a valid variants list,
+        "Name": {
+            "type" : "string"
         },
-        "Predecessor" : {
+        "Predecessor": {
             "type": "TODO: <Relational predecessor if any>, not defined yet, computable at compile time, need syntax for that too"
         },
-        "Type": {
-            "type": "string"
+        "Result" : {
+            "type": "TODO: <Relational predecessor if any>, not defined yet, computable at compile time, need syntax for that too"
+        },
+        "Type" : {
+            "type": "string",
+            "minLength" : 1
         },
         "JobTaskState": {
-            "namespace": "nerdcats.co/taskcat/jobtask-state/**/*" 
+            "description": "Current state of a jobtask",
+            "$ref": "http://nerdcats.com/taskcat/jobtask/state"
             // TODO: Not defined yet, supposed to be any sub-type of this so we can have different job tasks for different job types
         },
         "AssetRef": {
-            "namespace": "nerdcats.co/taskcat/assetref"
+            "type": "string"
         },
-        "ETA": {
-            "type": "datetime"
+        "ETA" : {
+            "format": "date-time",
+            "type": "string",
+            "description": "JobTask ETA"
         },
         "CreateTime": {
-            "type": "datetime"
+            "format": "date-time",
+            "type": "string",
+            "description": "JobTask creation time"
         },
-        "InitiationTime" : {
-            "type": "datetime"
+        "InitiationTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "JobTask initiation time"
         },
-        "ModifiedTime" : {
-            "type": "datetime"
+        "ModifiedTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "JobTask modification time"
         },
-        "CompletionTime" : {
-            "type": "datetime"
+        "CompletionTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "JobTask completion time"
         },
-        "Duration": {
-            "type": "duration"
+        "Duration" : {
+            "format": "duration",
+            "type": "string",
+            "description": "JobTask duration"
+            // TODO: This is another place we can use some smartness, may be some property expressions
         },
         "Description": {
+            "description": "Description of the jobtask",
             "type": "string"
         },
-        "Notes" : {
+        "Notes": {
+            "description": "Special set of notes for the Asset for this task",
             "type": "string"
+        },
+        "IsReadytoMoveToNextTask" : {
+            "type": "boolean"
         },
         "IsReadytoMoveToNextTask" : {
             "type" : "boolean"
@@ -64,6 +92,7 @@ A job task under TaskCat is a sub-unit of a single job. A JobTask denotes a stag
         "ETAFailed" : {
             "type" : "TODO: Execution time property, need to have a definition type here"
         }
-    }
+    },
+    "required": ["id", "Type"]
 }
 ```
