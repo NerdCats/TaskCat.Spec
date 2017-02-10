@@ -77,9 +77,6 @@ A job task under TaskCat is a sub-unit of a single job. A JobTask denotes a stag
         "IsReadytoMoveToNextTask" : {
             "type": "boolean"
         },
-        "IsReadytoMoveToNextTask" : {
-            "type" : "boolean"
-        },
         "IsDependencySatisfied" : {
             "type" : "TODO: Execution time property, need to have a definition type here"
         },
