@@ -19,6 +19,7 @@
     ],
     "events": [
         {
+            "from": "FetchDeliveryMan",
             "event": "FetchDeliveryMan_COMPLETED",
             "matchCondition": {
                 "op": "replace",
@@ -28,7 +29,8 @@
             "target": "Pickup"
         },
         {
-            "event": "PickUp_COMPLETED",
+            "from": "Pickup",
+            "event": "Pickup_COMPLETED",
             "matchCondition": {
                 "op": "replace",
                 "path": "/state",
@@ -37,6 +39,7 @@
             "target": "Delivery"
         },
         {
+            "from": "Pickup",
             "event": "PickUp_FAILED",
             "matchCondition": {
                 "op": "replace",
@@ -55,6 +58,7 @@
             "maxEventRetry": 4
         },
         {
+            "from": "Delivery",
             "event": "Delivery_COMPLETED",
             "matchCondition": {
                 "op": "replace",
@@ -64,13 +68,14 @@
             "isResolveEvent": true
         },
         {
+            "from": "Delivery",
             "event": "Delivery_FAILED",
             "matchCondition": {
                 "op": "replace",
                 "path": "/state",
                 "value": "FAILED"
             },
-            "target": "Pickup",
+            "target": "Delivery",
             "createNewTarget": true,
             "action": [
                 {
