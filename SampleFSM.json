@@ -85,6 +85,25 @@
                 }
             ],
             "maxEventRetry": 4
+        },
+        {
+            "from": "Delivery",
+            "event": "Delivery_RETURNED",
+            "matchCondition": {
+                "op": "replace",
+                "path": "/state",
+                "value": "RETURNED"
+            },
+            "target": "Delivery",
+            "createNewTarget": true,
+            "action": [
+                {
+                    "op": "replace",
+                    "path": "/variant",
+                    "value": "return"
+                }
+            ],
+            "maxEventRetry": 4
         }
     ]
 }
