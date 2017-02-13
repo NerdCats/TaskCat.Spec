@@ -1,0 +1,60 @@
+{
+    "name": "ClassifiedDelivery",
+    "variant": "default",
+    "isForest": true,
+    "nodes": [
+        {
+            "type": "FetchDeliveryMan",
+            "isEntryNode": true
+        },
+        {
+            "type": "Pickup",
+            "isDuplicateAllowed": true
+        },
+        {
+            "type": "Delivery",
+            "isResolveNode": true,
+            "isDuplicateAllowed": true
+        }
+    ],
+    "events": [
+        {
+            "event": "FetchDeliveryMan_COMPLETED",
+            "matchCondition": {
+                "op": "replace",
+                "path": "/state",
+                "value": "COMPLETED"
+            },
+            "target": "Pickup"
+        },
+        {
+            "event": "PickUp_COMPLETED",
+            "matchCondition": {
+                "op": "replace",
+                "path": "/state",
+                "value": "COMPLETED"
+            },
+            "target": "Delivery"
+        },
+        {
+            "event": "PickUp_FAILED",
+            "matchCondition": {
+                "op": "replace",
+                "path": "/state",
+                "value": "FAILED"
+            },
+            "target": "Pickup",
+            "createNewTarget": true,
+            "maxEventRetry": 4
+        },
+        {
+            "event": "Delivery_COMPLETED",
+            "matchCondition": {
+                "op": "replace",
+                "path": "/state",
+                "value": "COMPLETED"
+            },
+            "isResolveEvent": true
+        }
+    ]
+}
