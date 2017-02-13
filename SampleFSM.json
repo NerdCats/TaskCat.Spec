@@ -45,6 +45,13 @@
             },
             "target": "Pickup",
             "createNewTarget": true,
+            "action": [
+                {
+                    "op": "replace",
+                    "path": "/variant",
+                    "value": "retry"
+                }
+            ],
             "maxEventRetry": 4
         },
         {
@@ -55,6 +62,24 @@
                 "value": "COMPLETED"
             },
             "isResolveEvent": true
+        },
+        {
+            "event": "Delivery_FAILED",
+            "matchCondition": {
+                "op": "replace",
+                "path": "/state",
+                "value": "FAILED"
+            },
+            "target": "Pickup",
+            "createNewTarget": true,
+            "action": [
+                {
+                    "op": "replace",
+                    "path": "/variant",
+                    "value": "retry"
+                }
+            ],
+            "maxEventRetry": 4
         }
     ]
 }
