@@ -4,40 +4,6 @@ A job task under TaskCat is a sub-unit of a single job. A JobTask denotes a stag
 ## Abstract JobTask Schema
 ```JSON
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "http://nerdcats.com/taskcat/jobtask",
-    "title": "JobTask",
-    "description": "Generic JobTask Schema",
-    "type": "object",
-    "properties": {
-        "id": {
-            "description": "Unique 24 character GUID",
-            "type": "string"
-        },
-        "Name": {
-            "type" : "string"
-        },
-        "Predecessor": {
-            "type": "TODO: <Relational predecessor if any>, not defined yet, computable at compile time, need syntax for that too"
-        },
-        "Result" : {
-            "type": "TODO: <Relational predecessor if any>, not defined yet, computable at compile time, need syntax for that too"
-        },
-        "Type" : {
-            "type": "string",
-            "minLength" : 1
-        },
-        "JobTaskState": {
-            "description": "Current state of a jobtask",
-            "$ref": "http://nerdcats.com/taskcat/jobtask/state",
-            "TODO": "Not defined yet, supposed to be any sub-type of this so we can have different job tasks for different job types"
-        },
-        "AssetRef": {
-            "type": "string"
-        },
-        "ETA" : {
-            "format": "date-time",
-{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "http://nerdcats.com/taskcat/pickuptask",
   "type": "object",
