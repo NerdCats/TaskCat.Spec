@@ -1,5 +1,7 @@
 {
+    "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
+    "id": "http://nerdcats.io/schema/bank/fixeddeposit",
     "title": "FixedDepositSchema",
     "description": "A schema to define fixed deposit offerings from different banks",
     "properties": {
@@ -17,19 +19,36 @@
         "InterestRate": {
             "title": "InterestRate",
             "type": "number",
-            "description" : "Rate of interest offered"
+            "description": "Annual rate of interest offered"
         },
         "CompoundedInterestFrequency": {
             "title": "CompoundedInterestFrequency",
-            "description": "Compounded interest frequency stands for the frequency of interest accrument",
+            "description": "Compounded interest frequency stands for the frequency of interest accrument annually",
             "type": "number"
         },
-        "NumberOfPeriod": {
-            "title": "NumberOfPeriod",
-            "description": ""
+        "TimeSpan": {
+            "title": "TimeSpan",
+            "type": "object",
+            "description": "Time span of fixed deposit, usually a range defined by from and to property. Both from and to fields are number. The unit is years. So if it is 3 months, the number would be 0.25",
+            "properties": {
+                "from": {
+                    "title": "from",
+                    "type": "number",
+                    "description": "The number of years the fixed deposit duration starts."
+                },
+                "to": {
+                    "title": "to",
+                    "type": "number",
+                    "description": "The number of years the fixed deposit duration ends."
+                }
+            },
+            "required": ["from"]
         }
     },
     "required": [
-        "BankName"
+        "BankName",
+        "InterestRate",
+        "CompoundedInterestFrequency",
+        "TimeSpan"
     ]
 }
