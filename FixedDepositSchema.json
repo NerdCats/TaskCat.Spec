@@ -34,12 +34,12 @@
                 "from": {
                     "title": "from",
                     "type": "number",
-                    "description": "The number of years the fixed deposit duration starts."
+                    "description": "The number of years after the fixed deposit gets mature."
                 },
                 "to": {
                     "title": "to",
                     "type": "number",
-                    "description": "The number of years the fixed deposit duration ends."
+                    "description": "The number of years before the next tenor of fixed deposit starts."
                 }
             },
             "required": ["from"]
